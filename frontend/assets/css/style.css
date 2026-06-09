@@ -1,65 +1,130 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
   display: flex;
+  background: #f4f6f9;
+}
+
+#btn-sidebar {
+  width: 45px;
+  height: 45px;
+
+  border: none;
+  border-radius: 0 8px 8px 0;
+
+  background: #1e3a8a;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+#btn-sidebar:hover {
+  background: #1d4ed8;
 }
 
 .sidebar {
   width: 0;
   overflow: hidden;
-}
+  flex-shrink: 0;
 
-#btn-sidebar {
-  height: 100vh;
-  color: white;
-  background: linear-gradient(180deg, #0f172a, #1e293b, #0ea5e9);
+  min-height: 100vh;
+  transition: width 0.3s ease;
+
+  background: linear-gradient(
+    180deg,
+    #1e3a8a,
+    #1e40af,
+    #2563eb
+  );
+
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.15);
 }
 
 .sidebar.aberto {
-  width: 200px;
-  height: 100vh;
-  background: linear-gradient(180deg, #1e3a8a, #1e40af, #2563eb);
-  transition: 0.3s;
+  width: 220px;
 }
 
 .sidebar ul {
   list-style: none;
-  padding: 0;
+  padding: 20px 0;
   margin: 0;
-  text-align: left;
+}
+
+.sidebar li {
+  margin: 5px 10px;
 }
 
 .sidebar a {
   display: block;
-  padding: 15px 20px;
-  color: #e2e8f0;
+  padding: 14px 18px;
+
+  color: white;
   text-decoration: none;
+
   border-radius: 8px;
+  transition: 0.3s;
 }
 
 .sidebar a:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateX(5px);
 }
-
 .menuPrincipal {
   flex: 1;
-  padding: 20px;
+  padding: 25px;
 }
 
 .menuPrincipal h1 {
-  background: linear-gradient(180deg, #1e3a8a, #1e40af, #2563eb);
+  background: linear-gradient(90deg, #1e3a8a, #2563eb);
   color: white;
   text-align: center;
-  margin-bottom: 40px;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 30px;
 }
 
 .filtros {
   display: flex;
-  gap: 20px;
+  gap: 15px;
   align-items: end;
-  margin-bottom: 30px;
+  flex-wrap: wrap;
 }
 
 .filtros div {
   display: flex;
   flex-direction: column;
+}
+
+.filtros label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #334155;
+}
+
+.filtros input {
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+}
+
+#btnPesquisar {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#btnPesquisar:hover {
+  background: #1d4ed8;
 }

@@ -7,35 +7,36 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
-    <button id="btn-sidebar">☰</button>
+    <div class="menuLateral">
+      <button id="btn-sidebar">☰</button>
 
-    <aside class="sidebar">
-      <ul>
-        <li><a href="#">Menu Principal</a></li>
-        <li><a href="#">Calendário</a></li>
-        <li><a href="#">Relatórios</a></li>
-      </ul>
-    </aside>
+      <aside class="sidebar">
+        <ul>
+          <li><a href="#">Menu Principal</a></li>
+          <li><a href="#">Calendário</a></li>
+          <li><a href="#">Relatórios</a></li>
+        </ul>
+      </aside>
+    </div>
 
     <section class="menuPrincipal">
-    <h1>Minhas movimentações</h1>
+      <h1>Minhas movimentações</h1>
 
-    <div class="filtros">
-    <div>
-        <label for="dataInicial">Data inicial</label>
-        <input type="date" id="dataInicial">
-    </div>
+      <div class="filtros">
+        <div>
+          <label for="dataInicial">Data inicial</label>
+          <input type="date" id="dataInicial" />
+        </div>
 
-    <div>
-        <label for="dataFinal">Data final</label>
-        <input type="date" id="dataFinal">
-    </div>
+        <div>
+          <label for="dataFinal">Data final</label>
+          <input type="date" id="dataFinal" />
+        </div>
 
-    <button id="btnPesquisar">Pesquisar</button>
-    </div>
+        <button id="btnPesquisar">Pesquisar</button>
+      </div>
 
-    <div id="resultado"></div>
-    
+      <div id="resultado"></div>
     </section>
 
     <script src="./assets/js/main.js"></script>
