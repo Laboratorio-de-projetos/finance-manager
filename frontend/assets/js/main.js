@@ -5,7 +5,7 @@ btnMenu.addEventListener("click", () => {
   sidebar.classList.toggle("aberto");
 });
 
-// Pega as datas para o filtro e depois mostra as movimentações
+
 const dataInicial = document.querySelector("#dataInicial");
 const dataFinal = document.querySelector("#dataFinal");
 const btnFiltro = document.querySelector("#btnPesquisar");
@@ -62,35 +62,7 @@ btnFiltro.addEventListener("click", async () => {
       return;
     }
 
-    resultado.innerHTML = `
-      <table>
-        <thead>
-          <tr>
-            <th>Data</th>
-            <th>Descrição</th>
-            <th>Valor</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${dados
-            .map(
-              (item) => `
-                <tr>
-                  <td>${item.data}</td>
-                  <td>${item.descricao}</td>
-                  <td>
-                    ${Number(item.valor).toLocaleString("pt-BR", {
-                      style: "currency",
-                      currency: "BRL",
-                    })}
-                  </td>
-                </tr>
-              `
-            )
-            .join("")}
-        </tbody>
-      </table>
-    `;
+    atualizarTabela(dados);
   } catch (erro) {
     console.error(erro);
 
@@ -102,3 +74,35 @@ btnFiltro.addEventListener("click", async () => {
     });
   }
 });
+
+function atualizarTabela(movimentacoes) {
+  resultado.innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>Descrição</th>
+          <th>Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${movimentacoes
+          .map(
+            (item) => `
+              <tr>
+                <td>${item.data}</td>
+                <td>${item.descricao}</td>
+                <td>
+                  ${Number(item.valor).toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  })}
+                </td>
+              </tr>
+            `
+          )
+          .join("")}
+      </tbody>
+    </table>
+  `;
+}
