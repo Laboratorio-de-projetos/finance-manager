@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="./assets/css/login.css" />
+  </head>
+  <body>
+    <section class="dados">
+      <h1>Criar conta</h1>
+
+      <label for="camponome">Nome:</label>
+      <input type="text" id="camponome" name="nome" placeholder="nome" />
+
+      <label for="camposobrenome">Sobrenome:</label>
+      <input
+        type="text"
+        id="camposobrenome"
+        name="sobrenome"
+        placeholder="sobrenome"
+      />
+
+      <label for="campodatanascimento">Data nascimento:</label>
+      <input type="date" id="campodatanascimento" name="datanascimento" />
+
+      <label for="campoemail">Email:</label>
+      <input type="email" id="campoemail" name="email" placeholder="e-mail" />
+
+      <label for="camposenha">Senha:</label>
+      <input type="password" id="camposenha" name="senha" placeholder="senha" />
+
+      <label for="camposenhaconfirmar">Confirmar senha:</label>
+      <input
+        type="password"
+        id="camposenhaconfirmar"
+        name="senhaconfirmar"
+        placeholder="confirmar senha"
+      />
+
+      <button class="btncriarconta">Criar</button>
+
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script src="./assets/js/criarconta.js"></script>
+    </section>
+  </body>
+</html>

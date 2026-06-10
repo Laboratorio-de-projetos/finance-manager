@@ -93,3 +93,31 @@ body {
 .btnlogin:active {
   transform: scale(0.98);
 }
+
+.btncriarconta {
+  margin-top: 10px;
+
+  padding: 12px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #2563eb;
+
+  color: white;
+
+  font-size: 16px;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.btncriarconta:hover {
+  background: #1d4ed8;
+}
+
+.btncriarconta:active {
+  transform: scale(0.98);
+}
