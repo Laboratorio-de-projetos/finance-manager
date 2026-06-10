@@ -4,6 +4,12 @@ const btnLogin = document.querySelector(".btnlogin");
 
 
 btnLogin.addEventListener('click', async () => {
+  event.preventDefault();
+
+  if(!senha || !email || senha.value === '' || email.value === '') {
+    alert("Valor informado incorretamente");
+    return;
+  }
     const respostaLogin = await fetch ("http://localhost:8000/login", {
     method: "POST",
     headers: {
