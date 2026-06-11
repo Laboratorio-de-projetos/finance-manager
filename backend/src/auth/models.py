@@ -6,6 +6,7 @@ from decimal import Decimal
 
 Base = declarative_base()
 
+
 class User(Base):
     __tablename__ = "tb_users"
 
@@ -16,17 +17,13 @@ class User(Base):
 
 
 class Transaction(Base):
-    __tablename__ = 'tb_transactions'
+    __tablename__ = "tb_transactions"
 
-    id: Mapped[int] = mapped_column(
-        Integer, primary_key=True, autoincrement=True
-    )
-    value: Mapped[Decimal] = mapped_column(Numeric(10,2), nullable=False)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    value: Mapped[Decimal] = mapped_column(Numeric(10, 2), nullable=False)
     type: Mapped[str] = mapped_column(String, nullable=False)
     tag: Mapped[str] = mapped_column(String, nullable=False)
-    date: Mapped[datetime] = mapped_column(
-        DateTime, nullable=False
-    )
+    date: Mapped[datetime] = mapped_column(DateTime, nullable=False)
     user_id: Mapped[int] = mapped_column(
         Integer, ForeignKey("tb_users.id", ondelete="CASCADE"), nullable=False
     )
