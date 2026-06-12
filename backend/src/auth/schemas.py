@@ -1,4 +1,4 @@
-from sqlalchemy import Date
+from datetime import date
 
 from pydantic import BaseModel, EmailStr
 
@@ -6,7 +6,7 @@ from pydantic import BaseModel, EmailStr
 class PrivateUser(BaseModel):
     first_name: str
     last_name: str
-    birth_date: Date
+    birth_date: date
     email: EmailStr
     password: str
 
