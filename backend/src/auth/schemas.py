@@ -18,5 +18,3 @@ class RequestLogin(BaseModel):
 
 class Username(BaseModel):
     first_name: str
-
-

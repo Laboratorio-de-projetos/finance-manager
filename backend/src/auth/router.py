@@ -13,22 +13,24 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=['*'],
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=['*'],
+    allow_headers=['*'],
 )
 
 
-@app.post("/create/", status_code=HTTPStatus.CREATED, response_model=Username)
+@app.post('/create/', status_code=HTTPStatus.CREATED, response_model=Username)
 def create_user(user: PrivateUser, session: Session = Depends(get_db)):
 
-    existing_user = session.scalar(select(User).where(User.email == user.email))
+    existing_user = session.scalar(
+        select(User).where(User.email == user.email)
+    )
 
     if existing_user:
         raise HTTPException(
             status_code=HTTPStatus.CONFLICT,
-            detail="Email already exists",
+            detail='Email already exists',
         )
 
     hashed_password = get_password_hash(user.password)
@@ -45,28 +47,30 @@ def create_user(user: PrivateUser, session: Session = Depends(get_db)):
     session.commit()
     session.refresh(new_user)
 
-    return {"first_name": new_user.first_name}
+    return {'first_name': new_user.first_name}
 
 
-@app.post("/login/", status_code=HTTPStatus.OK)
+@app.post('/login/', status_code=HTTPStatus.OK)
 def login_user(data: RequestLogin, session: Session = Depends(get_db)):
 
-    existing_user = session.scalar(select(User).where(User.email == data.email))
+    existing_user = session.scalar(
+        select(User).where(User.email == data.email)
+    )
 
     if existing_user is None:
         raise HTTPException(
             status_code=HTTPStatus.NOT_FOUND,
-            detail="Email not found",
+            detail='Email not found',
         )
 
     if not verify_password(data.password, existing_user.password):
         raise HTTPException(
             status_code=HTTPStatus.UNAUTHORIZED,
-            detail="Incorrect password",
+            detail='Incorrect password',
         )
 
     access_token = create_token(
-        data={"username": existing_user.first_name, "id": existing_user.id}
+        data={'username': existing_user.first_name, 'id': existing_user.id}
     )
 
-    return {"access_token": access_token, "token_type": "bearer"}
+    return {'access_token': access_token, 'token_type': 'bearer'}

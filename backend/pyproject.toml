@@ -3,12 +3,19 @@ pythonpath = "."
 addopts = "-p no:warnings"
 
 [tool.ruff]
-line-length = 88
-target-version = "py311"
-select = ["E", "F", "W", "I", "UP", "B"]
+line-length = 79
+extend-exclude = ['migrations']
 exclude = [
     "alembic",
 ]
+
+[tool.ruff.lint]
+preview = true
+select = ['I', 'F', 'E', 'W', 'PL', 'PT']
+
+[tool.ruff.format]
+preview = true
+quote-style = 'single'
 
 [tool.ruff.per-file-ignores]
 "__init__.py" = ["F401"]

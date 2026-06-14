@@ -13,10 +13,11 @@ from src.auth.models import User
 
 
 load_dotenv()
-SECRET_KEY = os.getenv("SECRET_KEY")
-ALGORITHM = os.getenv("ALGORITHM")
+SECRET_KEY = os.getenv('SECRET_KEY')
+ALGORITHM = os.getenv('ALGORITHM')
 pwd_context = PasswordHash.recommended()
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl='token')
+
 
 def get_password_hash(password: str):
     return pwd_context.hash(password)
@@ -33,19 +34,20 @@ def create_token(data: dict):
 
     return encoded_jwt
 
+
 def get_current_user(
     session: Session = Depends(get_db),
     token: str = Depends(oauth2_scheme),
 ):
     credentials_exception = HTTPException(
         status_code=HTTPStatus.UNAUTHORIZED,
-        detail="Could not validate credentials",
-        headers={"WWW-Authenticate": "Bearer"},
+        detail='Could not validate credentials',
+        headers={'WWW-Authenticate': 'Bearer'},
     )
 
     try:
         payload = decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        subject_id = payload.get("id")
+        subject_id = payload.get('id')
 
         if not subject_id:
             raise credentials_exception
@@ -57,5 +59,5 @@ def get_current_user(
 
     if not user:
         raise credentials_exception
-    
+
     return user

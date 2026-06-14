@@ -12,7 +12,7 @@ from src.auth.security import get_password_hash
 
 
 load_dotenv()
-TEST_DATABASE_URL = os.getenv("TEST_DATABASE_URL")
+TEST_DATABASE_URL = os.getenv('TEST_DATABASE_URL')
 
 engine = create_engine(TEST_DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine)
@@ -43,11 +43,11 @@ def client_override(session):
 @pytest.fixture
 def add_user_database(session):
     test_user = User(
-        first_name="test",
-        last_name="test",
-        birth_date="2000-05-15",
-        email="test@example.com",
-        password=get_password_hash("testtest"),
+        first_name='test',
+        last_name='test',
+        birth_date='2000-05-15',
+        email='test@example.com',
+        password=get_password_hash('testtest'),
     )
 
     session.add(test_user)
