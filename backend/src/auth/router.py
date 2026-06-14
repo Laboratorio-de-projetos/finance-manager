@@ -23,9 +23,7 @@ app.add_middleware(
 @app.post("/create/", status_code=HTTPStatus.CREATED, response_model=Username)
 def create_user(user: PrivateUser, session: Session = Depends(get_db)):
 
-    existing_user = session.scalar(
-        select(User).where(User.email == user.email)
-    )
+    existing_user = session.scalar(select(User).where(User.email == user.email))
 
     if existing_user:
         raise HTTPException(
@@ -53,13 +51,11 @@ def create_user(user: PrivateUser, session: Session = Depends(get_db)):
 @app.post("/login/", status_code=HTTPStatus.OK)
 def login_user(data: RequestLogin, session: Session = Depends(get_db)):
 
-    existing_user = session.scalar(
-        select(User).where(User.email == data.email)
-    )
+    existing_user = session.scalar(select(User).where(User.email == data.email))
 
     if existing_user is None:
         raise HTTPException(
-            status_code=HTTPStatus.CONFLICT,
+            status_code=HTTPStatus.NOT_FOUND,
             detail="Email not found",
         )
 
@@ -69,11 +65,8 @@ def login_user(data: RequestLogin, session: Session = Depends(get_db)):
             detail="Incorrect password",
         )
 
-    access_token = create_token(data=
-            {
-            "username": existing_user.first_name,
-            "id": existing_user.id
-            }
-        )
+    access_token = create_token(
+        data={"username": existing_user.first_name, "id": existing_user.id}
+    )
 
     return {"access_token": access_token, "token_type": "bearer"}
