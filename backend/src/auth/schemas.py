@@ -11,5 +11,12 @@ class PrivateUser(BaseModel):
     password: str
 
 
+class RequestLogin(BaseModel):
+    email: EmailStr
+    password: str
+
+
 class Username(BaseModel):
     first_name: str
+
+
