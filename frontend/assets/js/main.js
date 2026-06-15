@@ -13,7 +13,7 @@ const btnFiltro = document.querySelector("#btnPesquisar");
 const resultado = document.querySelector("#resultado");
 
 btnFiltro.addEventListener("click", async () => {
-  const token = localStorage.getItem("token", data.access_token);
+  const token = localStorage.getItem("token");
   if (!token) {
     await Swal.fire({
       icon: "warning",
