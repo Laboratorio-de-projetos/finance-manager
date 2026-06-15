@@ -13,6 +13,17 @@ const btnFiltro = document.querySelector("#btnPesquisar");
 const resultado = document.querySelector("#resultado");
 
 btnFiltro.addEventListener("click", async () => {
+  const token = localStorage.getItem("token", data.access_token);
+  if (!token) {
+    await Swal.fire({
+      icon: "warning",
+      title: "Tempo de Logon excedido",
+      text: "Tempo de logon excedido, faça login novamente",
+      confirmButtonColor: "#1e3a8a",
+    });
+    return window.location.href = "index.html";
+  }
+
   if (!dataInicial.value || !dataFinal.value) {
     await Swal.fire({
       icon: "warning",
@@ -30,6 +41,7 @@ btnFiltro.addEventListener("click", async () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify({
           datainicial: dataInicial.value,

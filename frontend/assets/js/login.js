@@ -21,7 +21,7 @@ btnLogin.addEventListener("click", async () => {
       },
       body: JSON.stringify({
         email: email.value,
-        senha: senha.value,
+        password: senha.value,
       }),
     });
 
@@ -40,6 +40,8 @@ btnLogin.addEventListener("click", async () => {
       senha.focus();
       return;
     }
+
+    localStorage.setItem("token", dados.access_token);
 
     await Swal.fire({
       icon: "success",
