@@ -119,3 +119,74 @@ def create_transaction(
         'tag': new_transaction.tag,
         'date': new_transaction.date,
     }
+
+
+@app.delete(
+    '/delete_transaction/{transaction_id}',
+    status_code=HTTPStatus.OK,
+    response_model=PublicTransaction
+)
+def delete_transaction(
+    transaction_id: int,
+    session: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+
+    transaction = session.scalar(
+        select(Transaction).where(
+            Transaction.id == transaction_id,
+            Transaction.user_id == current_user.id
+        )
+    )
+
+    if transaction is None:
+        raise HTTPException(
+            status_code=HTTPStatus.NOT_FOUND,
+            detail='Transaction not found'
+        )
+
+    session.delete(transaction)
+    session.commit()
+
+    return {
+        'value': transaction.value,
+        'type': transaction.type,
+        'tag': transaction.tag,
+        'date': transaction.date,
+    }
+
+
+@app.put(
+    '/update_transaction/{transaction_id}',
+    status_code=HTTPStatus.OK,
+    response_model=PublicTransaction,
+)
+def update_transaction(
+    transaction_id: int,
+    data: AddTransaction,
+    session: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+
+    transaction = session.scalar(
+        select(Transaction).where(
+            Transaction.id == transaction_id,
+            Transaction.user_id == current_user.id
+        )
+    )
+
+    if transaction is None:
+        raise HTTPException(
+            status_code=HTTPStatus.NOT_FOUND,
+            detail='Transaction not found'
+        )
+
+    transaction.value = data.value
+    transaction.type = data.type
+    transaction.tag = data.tag
+    transaction.date = data.date
+
+    session.commit()
+    session.refresh(transaction)
+
+    return transaction
