@@ -5,7 +5,11 @@ from jwt import DecodeError, decode, encode
 from sqlalchemy.orm import Session
 from sqlalchemy import select
 from fastapi import Depends, HTTPException
-from fastapi.security import OAuth2PasswordBearer
+from fastapi.security import (
+    OAuth2PasswordBearer,
+    HTTPBearer,
+    HTTPAuthorizationCredentials,
+)
 from http import HTTPStatus
 
 from src.auth.database import get_db
@@ -16,7 +20,7 @@ load_dotenv()
 SECRET_KEY = os.getenv('SECRET_KEY')
 ALGORITHM = os.getenv('ALGORITHM')
 pwd_context = PasswordHash.recommended()
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl='token')
+oauth2_scheme = HTTPBearer()
 
 
 def get_password_hash(password: str):
@@ -37,27 +41,30 @@ def create_token(data: dict):
 
 def get_current_user(
     session: Session = Depends(get_db),
-    token: str = Depends(oauth2_scheme),
+    token: HTTPAuthorizationCredentials = Depends(oauth2_scheme),
 ):
-    credentials_exception = HTTPException(
-        status_code=HTTPStatus.UNAUTHORIZED,
-        detail='Could not validate credentials',
-        headers={'WWW-Authenticate': 'Bearer'},
-    )
 
     try:
-        payload = decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        subject_id = payload.get('id')
+        payload = decode(token.credentials, SECRET_KEY, algorithms=[ALGORITHM])
+        subject_id = int(payload.get('sub'))
 
         if not subject_id:
-            raise credentials_exception
+            raise HTTPException(
+                status_code=HTTPStatus.UNAUTHORIZED, detail='id not found'
+            )
 
     except DecodeError:
-        raise credentials_exception
+        raise HTTPException(
+            status_code=HTTPStatus.UNAUTHORIZED,
+            detail='Could not validate credentials',
+        )
 
     user = session.scalar(select(User).where(User.id == subject_id))
 
     if not user:
-        raise credentials_exception
+        raise HTTPException(
+            status_code=HTTPStatus.NOT_FOUND,
+            detail='User not found',
+        )
 
     return user
