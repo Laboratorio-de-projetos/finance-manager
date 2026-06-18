@@ -32,3 +32,8 @@ class PublicTransaction(BaseModel):
     type: str
     tag: str
     date: date
+
+
+class DateRange(BaseModel):
+    first_date: date
+    last_date: date

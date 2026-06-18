@@ -1,8 +1,9 @@
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from http import HTTPStatus
-from sqlalchemy import select, update
+from sqlalchemy import select, update, func
 from sqlalchemy.orm import Session
+from datetime import date
 
 from src.auth.database import get_db
 from src.auth.schemas import (
@@ -11,6 +12,7 @@ from src.auth.schemas import (
     RequestLogin,
     AddTransaction,
     PublicTransaction,
+    DateRange
 )
 from src.auth.models import User, Transaction
 from src.auth.security import (
@@ -19,6 +21,7 @@ from src.auth.security import (
     create_token,
     get_current_user,
 )
+from src.auth.service import generate_report
 
 app = FastAPI()
 
@@ -190,3 +193,52 @@ def update_transaction(
     session.refresh(transaction)
 
     return transaction
+
+
+@app.get(
+    '/read_transactions',
+    status_code=HTTPStatus.OK,
+    response_model=list[PublicTransaction]
+    )
+def read_transactions(
+    first_date: date,
+    last_date: date,
+    session: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    transaction = session.scalars(
+    select(Transaction).where(
+        Transaction.user_id == current_user.id,
+        Transaction.date >= first_date,
+        Transaction.date <= last_date
+    )
+    ).all()
+
+    if len(transaction) == 0:
+        raise HTTPException(
+            status_code=HTTPStatus.NOT_FOUND,
+            detail='Transaction not found'
+        )
+    
+    return transaction
+
+
+@app.get(
+    '/get_report',
+    status_code=HTTPStatus.OK,
+    )
+def get_report(
+    first_date: date,
+    last_date: date,
+    session: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    transaction = session.scalars(
+    select(Transaction).where(
+        Transaction.user_id == current_user.id,
+        Transaction.date >= first_date,
+        Transaction.date <= last_date
+    )
+    ).all()
+    
+    return generate_report(transaction)
