@@ -16,5 +16,24 @@ class RequestLogin(BaseModel):
     password: str
 
 
-class Username(BaseModel):
+class Name(BaseModel):
     first_name: str
+
+
+class AddTransaction(BaseModel):
+    value: int
+    type: str
+    tag: str
+    date: date
+
+
+class PublicTransaction(BaseModel):
+    value: int
+    type: str
+    tag: str
+    date: date
+
+
+class DateRange(BaseModel):
+    first_date: date
+    last_date: date
