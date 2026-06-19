@@ -14,15 +14,6 @@ const resultado = document.querySelector("#resultado");
 
 btnFiltro.addEventListener("click", async () => {
   const token = localStorage.getItem("token");
-  if (!token) {
-    await Swal.fire({
-      icon: "warning",
-      title: "Tempo de Logon excedido",
-      text: "Tempo de logon excedido, faça login novamente",
-      confirmButtonColor: "#1e3a8a",
-    });
-    return window.location.href = "index.html";
-  }
 
   if (!dataInicial.value || !dataFinal.value) {
     await Swal.fire({
