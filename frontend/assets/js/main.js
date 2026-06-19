@@ -71,7 +71,7 @@ function atualizarTabela(movimentacoes) {
       <thead>
         <tr>
           <th>Data</th>
-          <th>Descrição</th>
+          <th>Tag</th>
           <th>Valor</th>
         </tr>
       </thead>
@@ -80,10 +80,10 @@ function atualizarTabela(movimentacoes) {
           .map(
             (item) => `
               <tr>
-                <td>${item.data}</td>
-                <td>${item.descricao}</td>
+                <td>${item.date}</td>
+                <td>${item.tag}</td>
                 <td>
-                  ${Number(item.valor).toLocaleString("pt-BR", {
+                  ${Number(item.value).toLocaleString("pt-BR", {
                     style: "currency",
                     currency: "BRL",
                   })}
