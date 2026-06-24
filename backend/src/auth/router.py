@@ -117,6 +117,7 @@ def create_transaction(
     session.refresh(new_transaction)
 
     return {
+        'id': new_transaction.id,
         'value': new_transaction.value,
         'type': new_transaction.type,
         'tag': new_transaction.tag,
@@ -152,6 +153,7 @@ def delete_transaction(
     session.commit()
 
     return {
+        'id': transaction.id,
         'value': transaction.value,
         'type': transaction.type,
         'tag': transaction.tag,
@@ -192,7 +194,14 @@ def update_transaction(
     session.commit()
     session.refresh(transaction)
 
-    return transaction
+    # PADRONIZADO COM OS OUTROS ENDPOINTS
+    return {
+        'id': transaction.id,
+        'value': transaction.value,
+        'type': transaction.type,
+        'tag': transaction.tag,
+        'date': transaction.date,
+    }
 
 
 @app.get(

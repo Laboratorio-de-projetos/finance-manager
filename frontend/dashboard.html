@@ -37,17 +37,42 @@
         <button type="button" id="btnIncluirMov">Incluir</button>
       </div>
 
-      <div class="modal" id="modalMovimentacao">
+      <!-- MODAL DE INCLUSÃO -->
+      <div class="modal" id="modalInclusao">
         <div class="modal-content">
           <h2>Nova Movimentação</h2>
 
           <div class="form-group">
-            <label for="valorMov">Valor</label>
+            <label for="tipo">Tipo</label>
+            <select id="tipo" required>
+              <option value="Entrada">Entrada</option>
+              <option value="Saída">Saída</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="tag">Tag</label>
+            <select id="tag" required>
+              <option value="Alimentação">Alimentação</option>
+              <option value="Transporte">Transporte</option>
+              <option value="Moradia">Moradia</option>
+              <option value="Lazer">Lazer</option>
+              <option value="Saúde">Saúde</option>
+              <option value="Educação">Educação</option>
+              <option value="Salário">Salário</option>
+              <option value="Investimento">Investimento</option>
+              <option value="Outros">Outros</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="valorMov">Valor (R$)</label>
             <input
               type="number"
               id="valorMov"
-              placeholder="R$ 0,00"
+              placeholder="0,00"
               step="0.01"
+              min="0.01"
               required
             />
           </div>
@@ -57,31 +82,67 @@
             <input type="date" id="dataInclusaoMov" required />
           </div>
 
-          <div class="form-group">
-            <label for="tipo">Tipo</label>
-            <select id="tipo" required>
-              <option value="entrada">Entrada</option>
-              <option value="saida">Saída</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="tag">Tag</label>
-            <select id="tag" required>
-              <option value="alimentacao">Alimentação</option>
-              <option value="transporte">Transporte</option>
-              <option value="moradia">Moradia</option>
-              <option value="lazer">Lazer</option>
-              <option value="saude">Saúde</option>
-              <option value="outros">Outros</option>
-            </select>
-          </div>
-
           <div class="modal-buttons">
             <button class="btn-cancelar" id="btnCancelarInclusaoMov">
               Cancelar
             </button>
             <button class="btn-salvar" id="btnSalvarInclusaoMov">Salvar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODAL DE ALTERAÇÃO -->
+      <div class="modal" id="modalAlteracao">
+        <div class="modal-content">
+          <h2>Alterar Movimentação</h2>
+
+          <div class="form-group">
+            <label for="tipoAlteracao">Tipo</label>
+            <select id="tipoAlteracao" required>
+              <option value="Entrada">Entrada</option>
+              <option value="Saída">Saída</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="tagAlteracao">Tag</label>
+            <select id="tagAlteracao" required>
+              <option value="Alimentação">Alimentação</option>
+              <option value="Transporte">Transporte</option>
+              <option value="Moradia">Moradia</option>
+              <option value="Lazer">Lazer</option>
+              <option value="Saúde">Saúde</option>
+              <option value="Educação">Educação</option>
+              <option value="Salário">Salário</option>
+              <option value="Investimento">Investimento</option>
+              <option value="Outros">Outros</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="valorAlteracaoMov">Valor (R$)</label>
+            <input
+              type="number"
+              id="valorAlteracaoMov"
+              placeholder="0,00"
+              step="0.01"
+              min="0.01"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="dataAlteracaoMov">Data</label>
+            <input type="date" id="dataAlteracaoMov" required />
+          </div>
+
+          <div class="modal-buttons">
+            <button class="btn-cancelar" id="btnCancelarAlteracaoMov">
+              Cancelar
+            </button>
+            <button class="btn-salvar" id="btnSalvarAlteracaoMov">
+              Salvar
+            </button>
           </div>
         </div>
       </div>

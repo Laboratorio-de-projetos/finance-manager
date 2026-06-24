@@ -28,6 +28,7 @@ class AddTransaction(BaseModel):
 
 
 class PublicTransaction(BaseModel):
+    id: int
     value: int
     type: str
     tag: str
