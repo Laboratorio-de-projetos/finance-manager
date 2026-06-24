@@ -298,7 +298,7 @@ resultado.addEventListener("click", async (e) => {
     const dataValue = celulas[0].textContent;
     const tipoValue = celulas[1].textContent.trim();
     const tagValue = celulas[2].textContent.trim();
-    const valorText = celulas[3].textContent.replace(/[R$.,]/g, '').trim();
+    const valorText = celulas[3].textContent.replace(/[R$]/g, '').replace(/\./g, '').replace(',', '.').trim();
     
     const dataParts = dataValue.split('/');
     const dataFormatada = `${dataParts[2]}-${dataParts[1]}-${dataParts[0]}`;
@@ -322,6 +322,26 @@ salvarAlteracaoMovBtn.addEventListener("click", async () => {
       text: "ID da transação não encontrado.",
       confirmButtonColor: "#1e3a8a",
     });
+    return;
+  }
+
+  if (!selectTagAlteracao.value){
+    await Swal.fire({
+      icon:"warning",
+      title:"Tag incorreta",
+      text:"Informe um Tag valida.",
+      confirmButtonText: "#1e3a8a",
+    })
+    return;
+  }
+
+  if (!selectTipoAlteracao.value) {
+    await Swal.fire({
+      icon: "warning",
+      title:"Tipo incorreto",
+      text:"Informe um tipo valido",
+      confirmButtonColor: "#1e3a8a",
+    })
     return;
   }
   
