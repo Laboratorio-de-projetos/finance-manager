@@ -97,8 +97,8 @@ function atualizarTabela(movimentacoes) {
                     })}
                   </td>
                   <td>
-                    <button class="btnExcluirMov" data-id="${item.id}">🗑️</button>
-                    <button class="btnAlterarMov" data-id="${item.id}">✏️</button>
+                    <button class="btnExcluirMov" data-id="${item.id}">Excluir</button>
+                    <button class="btnAlterarMov" data-id="${item.id}">Alterar</button>
                   </td>
                 </tr>
               `;
