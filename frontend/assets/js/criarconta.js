@@ -8,12 +8,11 @@ const btnLogin = document.querySelector(".btncriarconta");
 
 const data = new Date();
 
-const dia = String(data.getDate()).padStart(2, '0');
-const mes = String(data.getMonth() + 1).padStart(2, '0');
 const ano = data.getFullYear();
+const mes = String(data.getMonth() + 1).padStart(2, '0');
+const dia = String(data.getDate()).padStart(2, '0');
 
-const dataAtual = `${dia}/${mes}/${ano}`;
-console.log(dataAtual);
+const dataAtual = `${ano}-${mes}-${dia}`;
 
 btnLogin.addEventListener("click", async () => {
   btnLogin.disabled = true;
