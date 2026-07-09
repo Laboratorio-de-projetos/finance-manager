@@ -26,7 +26,7 @@ btnFiltro.addEventListener("click", async () => {
   }
 
   try {
-    const url = `http://localhost:8000/read_transactions?first_date=${dataInicial.value}&last_date=${dataFinal.value}`;
+    const url = `https://finance-manager-api-elwi.onrender.com/read_transactions?first_date=${dataInicial.value}&last_date=${dataFinal.value}`;
 
     const respostaFiltro = await fetch(url, {
       method: "GET",
@@ -152,7 +152,7 @@ salvarInclusaoMovBtn.addEventListener("click", async () => {
 
   try {
     const respostaInclusaoMov = await fetch(
-      "http://localhost:8000/create_transaction/",
+      "https://finance-manager-api-elwi.onrender.com/create_transaction/",
       {
         method: "POST",
         headers: {
@@ -253,7 +253,7 @@ resultado.addEventListener("click", async (e) => {
     if (confirmacao.isConfirmed) {
       try {
         const resposta = await fetch(
-          `http://localhost:8000/delete_transaction/${transactionId}`,
+          `https://finance-manager-api-elwi.onrender.com/delete_transaction/${transactionId}`,
           {
             method: "DELETE",
             headers: {
@@ -375,7 +375,7 @@ salvarAlteracaoMovBtn.addEventListener("click", async () => {
 
   try {
     const resposta = await fetch(
-      `http://localhost:8000/update_transaction/${transactionIdAtual}`,
+      `https://finance-manager-api-elwi.onrender.com/update_transaction/${transactionIdAtual}`,
       {
         method: "PUT",
         headers: {

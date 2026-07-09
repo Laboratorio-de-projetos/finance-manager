@@ -41,7 +41,7 @@ btnLogin.addEventListener("click", async () => {
     return;
   }
 
-  const respostaLogin = await fetch("http://localhost:8000/create/", {
+  const respostaLogin = await fetch("https://finance-manager-api-elwi.onrender.com/create/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
