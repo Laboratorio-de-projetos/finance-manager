@@ -6,13 +6,7 @@ const lastname = document.querySelector("#camposobrenome");
 const dateBirth = document.querySelector("#campodatanascimento");
 const btnLogin = document.querySelector(".btncriarconta");
 
-const data = new Date();
-
-const ano = data.getFullYear();
-const mes = String(data.getMonth() + 1).padStart(2, '0');
-const dia = String(data.getDate()).padStart(2, '0');
-
-const dataAtual = `${ano}-${mes}-${dia}`;
+const dataAtual = new Date().toISOString().split("T")[0];
 
 btnLogin.addEventListener("click", async () => {
   btnLogin.disabled = true;
