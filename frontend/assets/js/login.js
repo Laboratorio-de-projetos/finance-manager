@@ -12,6 +12,8 @@ btnLogin.addEventListener("click", async () => {
     });
     return;
   }
+  
+  btnLogin.disabled = true;
 
   try {
     const respostaLogin = await fetch("https://finance-manager-api-elwi.onrender.com/login", {
@@ -24,6 +26,8 @@ btnLogin.addEventListener("click", async () => {
         password: senha.value,
       }),
     });
+
+    btnLogin.disabled = false;
 
     const dados = await respostaLogin.json();
 

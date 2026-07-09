@@ -130,6 +130,8 @@ const valorMov = document.querySelector("#valorMov");
 salvarInclusaoMovBtn.addEventListener("click", async () => {
   const token = localStorage.getItem("token");
 
+  salvarInclusaoMovBtn.disabled = true;
+
   if (!valorMov.value || valorMov.value <= 0) {
     await Swal.fire({
       icon: "warning",
@@ -167,6 +169,8 @@ salvarInclusaoMovBtn.addEventListener("click", async () => {
         }),
       },
     );
+
+    salvarInclusaoMovBtn.disabled = false;
 
     const dados = await respostaInclusaoMov.json();
 
@@ -323,6 +327,8 @@ resultado.addEventListener("click", async (e) => {
 salvarAlteracaoMovBtn.addEventListener("click", async () => {
   const token = localStorage.getItem("token");
 
+  salvarAlteracaoMovBtn.disabled = true;
+
   if (!transactionIdAtual) {
     await Swal.fire({
       icon: "error",
@@ -390,6 +396,8 @@ salvarAlteracaoMovBtn.addEventListener("click", async () => {
         }),
       },
     );
+
+    salvarAlteracaoMovBtn.disabled = false;
 
     const dados = await resposta.json();
 

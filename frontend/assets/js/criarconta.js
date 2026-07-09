@@ -6,7 +6,18 @@ const lastname = document.querySelector("#camposobrenome");
 const dateBirth = document.querySelector("#campodatanascimento");
 const btnLogin = document.querySelector(".btncriarconta");
 
+const data = new Date();
+
+const dia = String(data.getDate()).padStart(2, '0');
+const mes = String(data.getMonth() + 1).padStart(2, '0');
+const ano = data.getFullYear();
+
+const dataAtual = `${dia}/${mes}/${ano}`;
+console.log(dataAtual);
+
 btnLogin.addEventListener("click", async () => {
+  btnLogin.disabled = true;
+
   if (
     !firstname.value.trim() ||
     !lastname.value.trim() ||
@@ -19,6 +30,15 @@ btnLogin.addEventListener("click", async () => {
       icon: "warning",
       title: "Campos obrigatórios",
       text: "Preencha todos os campos.",
+    });
+    return;
+  }
+
+  if(dateBirth.value > dataAtual) {
+    await Swal.fire({
+      icon: "warning",
+      title: "Data de nascimento inválida",
+      text: "A data de nascimento não pode ser maior que a data atual.",
     });
     return;
   }
@@ -54,6 +74,8 @@ btnLogin.addEventListener("click", async () => {
       birth_date: dateBirth.value,
     }),
   });
+
+    btnLogin.disabled = false;
 
   const dados = await respostaLogin.json();
 
