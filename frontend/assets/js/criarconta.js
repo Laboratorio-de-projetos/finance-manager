@@ -31,6 +31,7 @@ btnLogin.addEventListener("click", async () => {
       title: "Campos obrigatórios",
       text: "Preencha todos os campos.",
     });
+    btnLogin.disabled = false;
     return;
   }
 
@@ -40,6 +41,7 @@ btnLogin.addEventListener("click", async () => {
       title: "Data de nascimento inválida",
       text: "A data de nascimento não pode ser maior que a data atual.",
     });
+    btnLogin.disabled = false;
     return;
   }
 
@@ -49,6 +51,7 @@ btnLogin.addEventListener("click", async () => {
       title: "Senha inválida",
       text: "A senha deve possuir pelo menos 8 caracteres.",
     });
+    btnLogin.disabled = false;
     return;
   }
 
@@ -58,6 +61,7 @@ btnLogin.addEventListener("click", async () => {
       title: "Senhas diferentes",
       text: "Os campos de senha devem ser iguais.",
     });
+    btnLogin.disabled = false;
     return;
   }
 

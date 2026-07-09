@@ -139,6 +139,7 @@ salvarInclusaoMovBtn.addEventListener("click", async () => {
       text: "Informe o valor corretamente.",
       confirmButtonColor: "#1e3a8a",
     });
+    salvarInclusaoMovBtn.disabled = false;
     return;
   }
 
@@ -149,6 +150,7 @@ salvarInclusaoMovBtn.addEventListener("click", async () => {
       text: "Informe a data.",
       confirmButtonColor: "#1e3a8a",
     });
+    salvarInclusaoMovBtn.disabled = false;
     return;
   }
 
@@ -336,6 +338,7 @@ salvarAlteracaoMovBtn.addEventListener("click", async () => {
       text: "ID da transação não encontrado.",
       confirmButtonColor: "#1e3a8a",
     });
+    salvarAlteracaoMovBtn.disabled = false;
     return;
   }
 
@@ -346,6 +349,7 @@ salvarAlteracaoMovBtn.addEventListener("click", async () => {
       text: "Informe um Tag valida.",
       confirmButtonText: "#1e3a8a",
     });
+    salvarAlteracaoMovBtn.disabled = false;
     return;
   }
 
@@ -356,6 +360,7 @@ salvarAlteracaoMovBtn.addEventListener("click", async () => {
       text: "Informe um tipo valido",
       confirmButtonColor: "#1e3a8a",
     });
+    salvarAlteracaoMovBtn.disabled = false;
     return;
   }
 
@@ -366,6 +371,7 @@ salvarAlteracaoMovBtn.addEventListener("click", async () => {
       text: "Informe o valor corretamente.",
       confirmButtonColor: "#1e3a8a",
     });
+    salvarAlteracaoMovBtn.disabled = false;
     return;
   }
 
@@ -376,6 +382,7 @@ salvarAlteracaoMovBtn.addEventListener("click", async () => {
       text: "Informe a data.",
       confirmButtonColor: "#1e3a8a",
     });
+    salvarAlteracaoMovBtn.disabled = false;
     return;
   }
 
