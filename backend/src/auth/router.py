@@ -23,7 +23,11 @@ from src.auth.security import (
 )
 from src.auth.service import generate_report
 
+print("IMPORTS OK")
+
 app = FastAPI()
+
+print("FASTAPI CRIADO")
 
 app.add_middleware(
     CORSMiddleware,
