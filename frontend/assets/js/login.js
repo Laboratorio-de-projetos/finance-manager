@@ -27,8 +27,6 @@ btnLogin.addEventListener("click", async () => {
       }),
     });
 
-    btnLogin.disabled = false;
-
     const dados = await respostaLogin.json();
 
     if (!respostaLogin.ok) {
@@ -57,12 +55,13 @@ btnLogin.addEventListener("click", async () => {
     window.location.href = "dashboard.html";
   } catch (erro) {
     console.error(erro);
-
     await Swal.fire({
       icon: "error",
       title: "Erro de conexão",
       text: "Não foi possível conectar ao servidor.",
       confirmButtonColor: "#1e3a8a",
     });
+  } finally {
+     btnLogin.disabled = false;
   }
 });

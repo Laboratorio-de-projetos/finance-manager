@@ -9,7 +9,6 @@ const btnLogin = document.querySelector(".btncriarconta");
 const dataAtual = new Date().toISOString().split("T")[0];
 
 btnLogin.addEventListener("click", async () => {
-  btnLogin.disabled = true;
 
   if (
     !firstname.value.trim() ||
@@ -24,7 +23,6 @@ btnLogin.addEventListener("click", async () => {
       title: "Campos obrigatórios",
       text: "Preencha todos os campos.",
     });
-    btnLogin.disabled = false;
     return;
   }
 
@@ -34,7 +32,6 @@ btnLogin.addEventListener("click", async () => {
       title: "Data de nascimento inválida",
       text: "A data de nascimento não pode ser maior que a data atual.",
     });
-    btnLogin.disabled = false;
     return;
   }
 
@@ -44,7 +41,6 @@ btnLogin.addEventListener("click", async () => {
       title: "Senha inválida",
       text: "A senha deve possuir pelo menos 8 caracteres.",
     });
-    btnLogin.disabled = false;
     return;
   }
 
@@ -54,10 +50,11 @@ btnLogin.addEventListener("click", async () => {
       title: "Senhas diferentes",
       text: "Os campos de senha devem ser iguais.",
     });
-    btnLogin.disabled = false;
     return;
   }
 
+   btnLogin.disabled = true;
+ try {
   const respostaLogin = await fetch("https://finance-manager-api-elwi.onrender.com/create/", {
     method: "POST",
     headers: {
@@ -71,8 +68,6 @@ btnLogin.addEventListener("click", async () => {
       birth_date: dateBirth.value,
     }),
   });
-
-    btnLogin.disabled = false;
 
   const dados = await respostaLogin.json();
 
@@ -91,4 +86,15 @@ btnLogin.addEventListener("click", async () => {
   });
 
   window.location.href = "index.html";
+} catch (erro) {
+  console.error(erro);
+  await Swal.fire({
+    icon: "error",
+    title: "Erro de conexão",
+    text: "Não foi possível conectar ao servidor.",
+    confirmButtonColor: "#1e3a8a",
+  });
+} finally {
+  btnLogin.disabled = false;
+}
 });

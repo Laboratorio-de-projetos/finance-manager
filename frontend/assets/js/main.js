@@ -130,8 +130,6 @@ const valorMov = document.querySelector("#valorMov");
 salvarInclusaoMovBtn.addEventListener("click", async () => {
   const token = localStorage.getItem("token");
 
-  salvarInclusaoMovBtn.disabled = true;
-
   if (!valorMov.value || valorMov.value <= 0) {
     await Swal.fire({
       icon: "warning",
@@ -139,7 +137,6 @@ salvarInclusaoMovBtn.addEventListener("click", async () => {
       text: "Informe o valor corretamente.",
       confirmButtonColor: "#1e3a8a",
     });
-    salvarInclusaoMovBtn.disabled = false;
     return;
   }
 
@@ -150,9 +147,10 @@ salvarInclusaoMovBtn.addEventListener("click", async () => {
       text: "Informe a data.",
       confirmButtonColor: "#1e3a8a",
     });
-    salvarInclusaoMovBtn.disabled = false;
     return;
   }
+
+  salvarInclusaoMovBtn.disabled = true;
 
   try {
     const respostaInclusaoMov = await fetch(
@@ -171,8 +169,6 @@ salvarInclusaoMovBtn.addEventListener("click", async () => {
         }),
       },
     );
-
-    salvarInclusaoMovBtn.disabled = false;
 
     const dados = await respostaInclusaoMov.json();
 
@@ -209,6 +205,8 @@ salvarInclusaoMovBtn.addEventListener("click", async () => {
       text: "Não foi possível conectar ao servidor.",
       confirmButtonColor: "#1e3a8a",
     });
+  } finally {
+    salvarInclusaoMovBtn.disabled = false;
   }
 });
 
@@ -329,8 +327,6 @@ resultado.addEventListener("click", async (e) => {
 salvarAlteracaoMovBtn.addEventListener("click", async () => {
   const token = localStorage.getItem("token");
 
-  salvarAlteracaoMovBtn.disabled = true;
-
   if (!transactionIdAtual) {
     await Swal.fire({
       icon: "error",
@@ -338,7 +334,6 @@ salvarAlteracaoMovBtn.addEventListener("click", async () => {
       text: "ID da transação não encontrado.",
       confirmButtonColor: "#1e3a8a",
     });
-    salvarAlteracaoMovBtn.disabled = false;
     return;
   }
 
@@ -349,7 +344,6 @@ salvarAlteracaoMovBtn.addEventListener("click", async () => {
       text: "Informe um Tag valida.",
       confirmButtonText: "#1e3a8a",
     });
-    salvarAlteracaoMovBtn.disabled = false;
     return;
   }
 
@@ -360,7 +354,6 @@ salvarAlteracaoMovBtn.addEventListener("click", async () => {
       text: "Informe um tipo valido",
       confirmButtonColor: "#1e3a8a",
     });
-    salvarAlteracaoMovBtn.disabled = false;
     return;
   }
 
@@ -371,7 +364,6 @@ salvarAlteracaoMovBtn.addEventListener("click", async () => {
       text: "Informe o valor corretamente.",
       confirmButtonColor: "#1e3a8a",
     });
-    salvarAlteracaoMovBtn.disabled = false;
     return;
   }
 
@@ -382,9 +374,10 @@ salvarAlteracaoMovBtn.addEventListener("click", async () => {
       text: "Informe a data.",
       confirmButtonColor: "#1e3a8a",
     });
-    salvarAlteracaoMovBtn.disabled = false;
     return;
   }
+
+  salvarAlteracaoMovBtn.disabled = true;
 
   try {
     const resposta = await fetch(
@@ -403,8 +396,6 @@ salvarAlteracaoMovBtn.addEventListener("click", async () => {
         }),
       },
     );
-
-    salvarAlteracaoMovBtn.disabled = false;
 
     const dados = await resposta.json();
 
@@ -440,6 +431,8 @@ salvarAlteracaoMovBtn.addEventListener("click", async () => {
       text: "Não foi possível conectar ao servidor.",
       confirmButtonColor: "#1e3a8a",
     });
+  } finally {
+    salvarAlteracaoMovBtn.disabled = false;
   }
 });
 
