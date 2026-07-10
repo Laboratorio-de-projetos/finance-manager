@@ -1,9 +1,30 @@
-//SIDEBAR
-const btnMenu = document.querySelector("#btn-sidebar");
-const sidebar = document.querySelector(".sidebar");
+document.addEventListener('DOMContentLoaded', function() {
+  const btnSidebar = document.getElementById('btn-sidebar');
+  const sidebar = document.querySelector('.sidebar');
+  
+  // Cria o overlay dinamicamente
+  const overlay = document.createElement('div');
+  overlay.className = 'sidebar-overlay';
+  document.body.appendChild(overlay);
 
-btnMenu.addEventListener("click", () => {
-  sidebar.classList.toggle("aberto");
+  function toggleSidebar() {
+    const isOpen = sidebar.classList.toggle('aberto');
+    overlay.classList.toggle('aberto');
+    btnSidebar.classList.toggle('aberto');
+    document.body.classList.toggle('sidebar-aberta');
+  }
+
+  btnSidebar.addEventListener('click', toggleSidebar);
+  overlay.addEventListener('click', toggleSidebar);
+
+  // Fecha ao clicar em um link (apenas em mobile)
+  sidebar.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', function() {
+      if (window.innerWidth <= 768) {
+        toggleSidebar();
+      }
+    });
+  });
 });
 
 const dataInicial = document.querySelector("#dataInicial");

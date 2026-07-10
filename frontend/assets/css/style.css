@@ -14,82 +14,148 @@ body {
   background: #f4f6f9;
 }
 
-#btn-sidebar {
-  width: 45px;
-  height: 45px;
-
-  border: none;
-  border-radius: 0 8px 8px 0;
-
-  background: #1e3a8a;
-  color: white;
-  font-size: 20px;
-  cursor: pointer;
-
-  transition: 0.3s;
+.menuLateral {
+  position: relative;
 }
 
-#btn-sidebar:hover {
+.btn-toggle-sidebar {
+  position: fixed;
+  top: 18px;
+  left: 18px;
+  z-index: 1100;
+  width: 44px;
+  height: 44px;
+  background: #1e3a8a;
+  border: none;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
+}
+
+.btn-toggle-sidebar:hover {
   background: #1d4ed8;
 }
 
+.btn-toggle-sidebar:active {
+  transform: scale(0.92);
+}
+
+.btn-toggle-sidebar span {
+  display: block;
+  width: 22px;
+  height: 2.5px;
+  background: white;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.btn-toggle-sidebar.aberto span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+.btn-toggle-sidebar.aberto span:nth-child(2) {
+  opacity: 0;
+}
+.btn-toggle-sidebar.aberto span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
 .sidebar {
-  width: 0;
-  overflow: hidden;
-  flex-shrink: 0;
-
-  min-height: 100vh;
-  transition: width 0.3s ease;
-
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 240px;
   background: linear-gradient(180deg, #1e3a8a, #1e40af, #2563eb);
-
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 2px 0 20px rgba(0, 0, 0, 0.2);
+  padding-top: 80px;
+  z-index: 1050;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+  transform: translateX(-100%); /* escondida por padrão (mobile first) */
 }
 
 .sidebar.aberto {
-  width: 220px;
+  transform: translateX(0);
+}
+
+.sidebar-header {
+  padding: 0 20px 20px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  margin-bottom: 20px;
+}
+
+.sidebar-header h2 {
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin: 0;
 }
 
 .sidebar ul {
   list-style: none;
-  padding: 20px 0;
+  padding: 0 12px;
   margin: 0;
 }
 
 .sidebar li {
-  margin: 5px 10px;
+  margin-bottom: 4px;
 }
 
 .sidebar a {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 14px;
   padding: 14px 18px;
-
-  color: white;
+  color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
+  border-radius: 10px;
+  transition: all 0.25s ease;
+  font-size: 15px;
+  font-weight: 500;
+}
 
-  border-radius: 8px;
-  transition: 0.3s;
+.sidebar a i {
+  width: 22px;
+  font-size: 18px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .sidebar a:hover {
-  background: rgba(255, 255, 255, 0.15);
-  transform: translateX(5px);
-}
-
-.menuPrincipal {
-  flex: 1;
-  min-width: 0;
-  width: 100%;
-  padding: 25px;
-}
-
-.menuPrincipal h1 {
-  background: linear-gradient(90deg, #1e3a8a, #2563eb);
+  background: rgba(255, 255, 255, 0.12);
   color: white;
-  text-align: center;
-  padding: 12px;
-  border-radius: 10px;
-  margin-bottom: 30px;
+  transform: translateX(6px);
+}
+
+.sidebar a:hover i {
+  color: white;
+}
+
+.sidebar a:active {
+  transform: scale(0.96);
+}
+
+
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1040;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar-overlay.aberto {
+  opacity: 1;
+  pointer-events: all;
 }
 
 .filtros {
@@ -646,4 +712,33 @@ body {
 .campo-filtro input,
 .campo-filtro select {
   width: 100%;
+}
+
+@media (min-width: 769px) {
+  .sidebar {
+    transform: translateX(0) !important; 
+    padding-top: 30px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 240px;
+    z-index: 1000;
+    box-shadow: 2px 0 20px rgba(0, 0, 0, 0.15);
+  }
+
+  
+  .btn-toggle-sidebar {
+    display: none !important;
+  }
+
+  .sidebar-overlay {
+    display: none !important;
+  }
+
+  .menuPrincipal {
+    margin-left: 240px;
+    padding: 30px 40px;
+    width: auto;
+  }
 }
