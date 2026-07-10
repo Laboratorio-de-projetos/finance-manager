@@ -468,7 +468,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-//Funcao para gerar os dados dos graficos
+//gerar os dados dos graficos
 function processarDadosParaGraficos(transacoes) {
   const entradas = transacoes.filter((t) => t.type === "Entrada");
   const saidas = transacoes.filter((t) => t.type === "Saída");
@@ -507,7 +507,7 @@ function processarDadosParaGraficos(transacoes) {
   };
 }
 
-//Gerar os graficos
+//Gerar grafico
 let graficoCategorias = null;
 let graficoSaldo = null;
 
@@ -649,9 +649,156 @@ function criarGraficos(dados) {
       },
     },
   });
+
+  configurarEventosGraficos(dados);
 }
 
-//Funcao dos cards
+//atualizar grafico de categorias
+function atualizarGraficoCategorias(tipo, transacoes) {
+    if (!graficoCategorias || !transacoes) return;
+    
+    const filtradas = transacoes.filter(t => {
+        if (tipo === 'gastos') return t.type === 'Saída';
+        if (tipo === 'entradas') return t.type === 'Entrada';
+        return true;
+    });
+    
+    const categorias = {};
+    filtradas.forEach(t => {
+        categorias[t.tag] = (categorias[t.tag] || 0) + Number(t.value);
+    });
+    
+    const labels = Object.keys(categorias);
+    const values = Object.values(categorias);
+    
+    const cores = [
+        "#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", 
+        "#9966FF", "#FF9F40", "#FF6384", "#C9CBCF"
+    ];
+    
+    graficoCategorias.data.labels = labels;
+    graficoCategorias.data.datasets[0].data = values;
+    graficoCategorias.data.datasets[0].backgroundColor = cores.slice(0, labels.length);
+    
+    const titulo = tipo === 'gastos' ? 'Gastos por Categoria' : 'Entradas por Categoria';
+    graficoCategorias.options.plugins.title.text = titulo;
+    
+    graficoCategorias.update();
+}
+
+//atualizar grafico de saldo
+function atualizarGraficoSaldo(tipo, transacoes) {
+    if (!graficoSaldo || !transacoes) return;
+    
+    let dados = [];
+    let label = '';
+    let cor = '#2563eb';
+    let corFundo = 'rgba(37, 99, 235, 0.1)';
+    
+    const datasOrdenadas = [...new Set(transacoes.map(t => t.date))].sort();
+    
+    switch(tipo) {
+        case 'saldo':
+            let saldoAcumulado = 0;
+            dados = datasOrdenadas.map(data => {
+                const diaEntradas = transacoes
+                    .filter(t => t.date === data && t.type === 'Entrada')
+                    .reduce((sum, t) => sum + Number(t.value), 0);
+                const diaSaidas = transacoes
+                    .filter(t => t.date === data && t.type === 'Saída')
+                    .reduce((sum, t) => sum + Number(t.value), 0);
+                saldoAcumulado += diaEntradas - diaSaidas;
+                return saldoAcumulado;
+            });
+            label = 'Saldo Acumulado';
+            cor = '#2563eb';
+            corFundo = 'rgba(37, 99, 235, 0.1)';
+            break;
+            
+        case 'gastos':
+            dados = datasOrdenadas.map(data => {
+                return transacoes
+                    .filter(t => t.date === data && t.type === 'Saída')
+                    .reduce((sum, t) => sum + Number(t.value), 0);
+            });
+            label = 'Gastos Diários';
+            cor = '#ef4444';
+            corFundo = 'rgba(239, 68, 68, 0.1)';
+            break;
+            
+        case 'entradas':
+            dados = datasOrdenadas.map(data => {
+                return transacoes
+                    .filter(t => t.date === data && t.type === 'Entrada')
+                    .reduce((sum, t) => sum + Number(t.value), 0);
+            });
+            label = 'Entradas Diárias';
+            cor = '#22c55e';
+            corFundo = 'rgba(34, 197, 94, 0.1)';
+            break;
+            
+        case 'movimentacoes':
+            dados = datasOrdenadas.map(data => {
+                const entradas = transacoes
+                    .filter(t => t.date === data && t.type === 'Entrada')
+                    .reduce((sum, t) => sum + Number(t.value), 0);
+                const saidas = transacoes
+                    .filter(t => t.date === data && t.type === 'Saída')
+                    .reduce((sum, t) => sum + Number(t.value), 0);
+                return entradas + saidas;
+            });
+            label = 'Movimentações Totais';
+            cor = '#8b5cf6';
+            corFundo = 'rgba(139, 92, 246, 0.1)';
+            break;
+    }
+    
+    graficoSaldo.data.datasets[0].label = label;
+    graficoSaldo.data.datasets[0].data = dados;
+    graficoSaldo.data.datasets[0].borderColor = cor;
+    graficoSaldo.data.datasets[0].backgroundColor = corFundo;
+    graficoSaldo.data.datasets[0].pointBackgroundColor = cor;
+    
+    graficoSaldo.options.plugins.title.text = `Evolução - ${label}`;
+    
+    graficoSaldo.update();
+}
+
+//eventos botoes
+function configurarEventosGraficos(transacoes) {
+    
+    document.getElementById('btnGastosCateg').addEventListener('click', function() {
+        document.getElementById('btnGastosCateg').classList.add('active');
+        document.getElementById('btnEntradasCateg').classList.remove('active');
+        atualizarGraficoCategorias('gastos', transacoes);
+    });
+    
+    document.getElementById('btnEntradasCateg').addEventListener('click', function() {
+        document.getElementById('btnEntradasCateg').classList.add('active');
+        document.getElementById('btnGastosCateg').classList.remove('active');
+        atualizarGraficoCategorias('entradas', transacoes);
+    });
+    
+    // botoes de saldo
+    const botoesSaldo = [
+        { id: 'btnSaldo', tipo: 'saldo' },
+        { id: 'btnGastos', tipo: 'gastos' },
+        { id: 'btnEntradas', tipo: 'entradas' },
+        { id: 'btnMovimentacoes', tipo: 'movimentacoes' }
+    ];
+    
+    botoesSaldo.forEach(({ id, tipo }) => {
+        document.getElementById(id).addEventListener('click', function() {
+            botoesSaldo.forEach(b => {
+                document.getElementById(b.id).classList.remove('active');
+            });
+            this.classList.add('active');
+            atualizarGraficoSaldo(tipo, transacoes);
+        });
+    });
+}
+
+//Funcao cards
 function atualizarCards(movimentacoes) {
   const totalEntradas = movimentacoes
     .filter((t) => t.type === "Entrada")
