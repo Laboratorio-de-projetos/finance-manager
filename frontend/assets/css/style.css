@@ -633,7 +633,3 @@ body {
 #modalAlteracao .btn-salvar:hover {
   background: #d97706;
 }
-
-* {
-  outline: 1px solid red;
-}
