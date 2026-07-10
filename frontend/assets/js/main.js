@@ -162,7 +162,7 @@ salvarInclusaoMovBtn.addEventListener("click", async () => {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          value: Number(valorMov.value),
+          value: Number(valorMov.value.replace(",", ".")),
           date: dataInclusaoMov.value,
           type: selectTipo.value,
           tag: selectTag.value,
@@ -389,7 +389,7 @@ salvarAlteracaoMovBtn.addEventListener("click", async () => {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          value: Number(valorAlteracaoMov.value),
+          value: Number(valorAlteracaoMov.value.replace(",",".")),
           date: dataAlteracaoMov.value,
           type: selectTipoAlteracao.value,
           tag: selectTagAlteracao.value,
