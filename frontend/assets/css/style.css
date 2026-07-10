@@ -421,32 +421,34 @@ body {
 /* ========== TABELA ========== */
 #resultado {
   margin-top: 20px;
+  width: 100%;
   overflow-x: auto;
 }
 
 #resultado table {
   width: 100%;
+  min-width: 650px;
   border-collapse: collapse;
-
   background: white;
-
   border-radius: 12px;
   overflow: hidden;
-
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 #resultado th {
   background: #1e3a8a;
   color: white;
-
-  padding: 12px;
   text-align: left;
   font-weight: 600;
 }
 
+#resultado th,
 #resultado td {
   padding: 12px;
+  white-space: nowrap;
+}
+
+#resultado td {
   border-bottom: 1px solid #e2e8f0;
 }
 
