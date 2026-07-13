@@ -2,6 +2,8 @@ from datetime import date
 
 from pydantic import BaseModel, EmailStr
 
+from decimal import Decimal
+
 
 class PrivateUser(BaseModel):
     first_name: str
@@ -21,7 +23,7 @@ class Name(BaseModel):
 
 
 class AddTransaction(BaseModel):
-    value: int
+    value: Decimal
     type: str
     tag: str
     date: date
@@ -29,7 +31,7 @@ class AddTransaction(BaseModel):
 
 class PublicTransaction(BaseModel):
     id: int
-    value: int
+    value: Decimal
     type: str
     tag: str
     date: date
