@@ -1,8 +1,40 @@
+
 const btnMenu = document.querySelector("#btn-sidebar");
 const sidebar = document.querySelector(".sidebar");
+const menuPrincipal = document.querySelector(".menuPrincipal");
+
+function abrirSidebar() {
+  sidebar.classList.add("aberto");
+  btnMenu.classList.add("aberto");
+  document.body.classList.add("sem-scroll");
+}
+
+function fecharSidebar() {
+  sidebar.classList.remove("aberto");
+  btnMenu.classList.remove("aberto");
+  document.body.classList.remove("sem-scroll");
+}
 
 btnMenu.addEventListener("click", () => {
-  sidebar.classList.toggle("aberto");
+  if (sidebar.classList.contains("aberto")) {
+    fecharSidebar();
+  } else {
+    abrirSidebar();
+  }
+});
+
+// Fecha ao clicar fora da sidebar (no overlay escurecido)
+menuPrincipal.addEventListener("click", (e) => {
+  if (sidebar.classList.contains("aberto") && !sidebar.contains(e.target)) {
+    fecharSidebar();
+  }
+});
+
+// Fecha com a tecla Esc
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && sidebar.classList.contains("aberto")) {
+    fecharSidebar();
+  }
 });
 
 const dataInicial = document.querySelector("#dataInicial");

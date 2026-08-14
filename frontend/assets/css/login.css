@@ -1,3 +1,25 @@
+/* ============================================================
+   VARIÁVEIS GLOBAIS
+   Mesma paleta usada em style.css (documento principal).
+   Se a tela de login não carregar style.css junto, mantenha
+   estes valores sincronizados manualmente com os de lá.
+   ============================================================ */
+:root {
+  --azul-escuro: #1e3a8a;
+  --azul: #2563eb;
+  --azul-hover: #1d4ed8;
+  --azul-foco: rgba(37, 99, 235, 0.3);
+
+  --branco: #ffffff;
+  --texto-titulo: #1e293b;
+  --borda: #cbd5e1;
+
+  --sombra-card-forte: 0 4px 15px rgba(0, 0, 0, 0.2);
+  --raio: 8px;
+  --raio-lg: 12px;
+  --transicao: 0.3s;
+}
+
 /* Reset básico */
 * {
   margin: 0;
@@ -8,7 +30,7 @@
 /* Tela de login */
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background: linear-gradient(135deg, #1e3a8a, #2563eb);
+  background: linear-gradient(135deg, var(--azul-escuro), var(--azul));
 
   min-height: 100vh;
 
@@ -21,13 +43,11 @@ body {
 .dados {
   width: 350px;
 
-  background: white;
-
+  background: var(--branco);
   padding: 30px;
 
-  border-radius: 12px;
-
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border-radius: var(--raio-lg);
+  box-shadow: var(--sombra-card-forte);
 
   display: flex;
   flex-direction: column;
@@ -37,87 +57,57 @@ body {
 /* Título */
 .dados h1 {
   text-align: center;
-  color: #1e3a8a;
+  color: var(--azul-escuro);
   margin-bottom: 15px;
 }
 
 /* Labels */
 .dados label {
   font-weight: bold;
-  color: #1e293b;
+  color: var(--texto-titulo);
 }
 
 /* Inputs */
 .dados input {
   padding: 12px;
 
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
 
   outline: none;
-
-  transition: 0.3s;
+  transition: var(--transicao);
 }
 
 .dados input:focus {
-  border-color: #2563eb;
-
-  box-shadow: 0 0 5px rgba(37, 99, 235, 0.3);
+  border-color: var(--azul);
+  box-shadow: 0 0 5px var(--azul-foco);
 }
 
-/* Botão */
-.btnlogin {
-  margin-top: 10px;
-
-  padding: 12px;
-
-  border: none;
-  border-radius: 8px;
-
-  background: #2563eb;
-
-  color: white;
-
-  font-size: 16px;
-  font-weight: bold;
-
-  cursor: pointer;
-
-  transition: 0.3s;
-}
-
-.btnlogin:hover {
-  background: #1d4ed8;
-}
-
-.btnlogin:active {
-  transform: scale(0.98);
-}
-
+/* Botões (entrar / criar conta) */
+.btnlogin,
 .btncriarconta {
   margin-top: 10px;
-
   padding: 12px;
 
   border: none;
-  border-radius: 8px;
+  border-radius: var(--raio);
 
-  background: #2563eb;
-
-  color: white;
+  background: var(--azul);
+  color: var(--branco);
 
   font-size: 16px;
   font-weight: bold;
 
   cursor: pointer;
-
-  transition: 0.3s;
+  transition: var(--transicao);
 }
 
+.btnlogin:hover,
 .btncriarconta:hover {
-  background: #1d4ed8;
+  background: var(--azul-hover);
 }
 
+.btnlogin:active,
 .btncriarconta:active {
   transform: scale(0.98);
 }
